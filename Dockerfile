@@ -1,5 +1,5 @@
-# Use Python 3.11 slim image for smaller size
-FROM python:3.11-slim
+# Use the official uv image which has uv pre-installed
+FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -8,18 +8,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 # Set work directory
 WORKDIR /app
-
-# Install system dependencies and uv
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        curl \
-        gcc \
-        libc6-dev \
-    && curl -LsSf https://astral.sh/uv/install.sh | sh \
-    && . $HOME/.cargo/env \
-    && mv $HOME/.cargo/bin/uv /usr/local/bin/uv \
-    && rm -rf /var/lib/apt/lists/* \
-    && uv --version
 
 # Copy dependency files first for better layer caching
 COPY pyproject.toml uv.lock ./
