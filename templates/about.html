@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}About - FPL Web Application{% endblock %}
+
+{% block content %}
+<h1 class="fpl-title">About This FPL Application</h1>
+
+<div style="margin: 2rem 0;">
+    <h2 class="fpl-title">Overview</h2>
+    <p>This is a Fantasy Premier League themed web application built with Flask, using the official Premier League styling. The application demonstrates modern web development practices including:</p>
+
+    <ul style="margin: 1rem 0; padding-left: 2rem;">
+        <li>Official Premier League CSS theme integration</li>
+        <li>FPL color scheme (#37003c and #00ff87)</li>
+        <li>RESTful API endpoints for fantasy football data</li>
+        <li>JavaScript for dynamic interactions</li>
+        <li>Template inheritance with Jinja2</li>
+        <li>Error handling and custom error pages</li>
+    </ul>
+</div>
+
+<div style="margin: 2rem 0;">
+    <h2 class="fpl-title">Technical Stack</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+        <div class="fpl-card" style="border-left-color: #37003c;">
+            <h4>Backend</h4>
+            <ul>
+                <li>Python 3.13+</li>
+                <li>Flask 3.1.2</li>
+                <li>Port 8090</li>
+            </ul>
+        </div>
+
+        <div class="fpl-card" style="border-left-color: #00ff87;">
+            <h4>Frontend</h4>
+            <ul>
+                <li>Official Premier League CSS</li>
+                <li>HTML5 & CSS3</li>
+                <li>Vanilla JavaScript</li>
+                <li>FPL Theme Colors</li>
+            </ul>
+        </div>
+
+        <div class="fpl-card" style="border-left-color: #ff6b6b;">
+            <h4>Features</h4>
+            <ul>
+                <li>Responsive Design</li>
+                <li>API Integration</li>
+                <li>Form Handling</li>
+                <li>FPL Themed UI</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div style="margin: 2rem 0;">
+    <h2 class="fpl-title">API Documentation</h2>
+    <div class="fpl-card" style="font-family: monospace; background: #f1f3f4;">
+        <h4 style="color: #37003c;">GET /api/data</h4>
+        <p>Returns information about available API endpoints for FPL data</p>
+
+        <h4 style="color: #37003c; margin-top: 1rem;">POST /api/data</h4>
+        <p>Accepts JSON data from FPL managers and returns a confirmation response</p>
+        <p><strong>Content-Type:</strong> application/json</p>
+        <p><strong>Example payload:</strong></p>
+        <pre style="background: #37003c; color: #00ff87; padding: 1rem; border-radius: 4px;">{
+  "name": "FPL Manager",
+  "message": "My team is performing well this season!"
+}</pre>
+    </div>
+</div>
+
+<div style="margin: 2rem 0;">
+    <h2 class="fpl-title">FPL Theme Details</h2>
+    <div class="fpl-card">
+        <p>This application uses the official Premier League styling from:</p>
+        <code style="background: #37003c; color: #00ff87; padding: 0.5rem; border-radius: 4px;">
+            https://www.premierleague.com/resources/v1.27.27/ism/css/ism.css
+        </code>
+        <p style="margin-top: 1rem;">Combined with custom FPL-themed components using the official color palette:</p>
+        <ul>
+            <li><strong>Primary Purple:</strong> #37003c</li>
+            <li><strong>Accent Green:</strong> #00ff87</li>
+            <li><strong>Premium Font:</strong> PremierSans</li>
+        </ul>
+    </div>
+</div>
+
+<div style="text-align: center; margin: 2rem 0;">
+    <a href="/" class="fpl-btn">Back to Home</a>
+</div>
+{% endblock %}

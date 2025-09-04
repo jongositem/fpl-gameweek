@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Home - FPL Web Application{% endblock %}
+
+{% block content %}
+
+<div class="_16mjapo2 _16mjapo0">
+    <div class="nxc5e30">
+        <header class="_9qwb420">
+            <h2 id="page-title" class="y4h0qq0">{{ league_name }}</h2>
+            <div class="_9qwb422"></div>
+            <div class="_9qwb424">
+                <a class="_1hin72h0 _1hin72h7 _1hin72h1 _1hin72h3 _1hin72h5 rr2m9y0 " href="mailto:mynewage@gmail.com" data-discover="true">Report To Admin</a>
+            </div>
+        </header>
+        <div class="yfrbn60">
+            <div style="margin-top: 30px;">
+                <div role="group" aria-label="Filter chips" class="react-aria-Select">
+                    <select class="" onchange="if(this.value) window.location.href='/event/' + this.value">
+                        <option value="" selected>Select Gameweek</option>
+                        {% for event in gameweeks %}
+                        <option value="{{ event.id }}">{{ event.name }} - {{event.deadline_time | format_datetime}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            {% if last_updated %}
+            <span>Last updated: <strong>{{ last_updated | format_datetime }}</strong> (local time)</span>
+            {% endif %}
+
+            {% if error %}
+            <div class="error-message">{{ error }}</div>
+            {% endif %}
+
+            <template data-react-aria-hidden="true"></template>
+            <span data-focus-scope-start="true" hidden=""></span>
+            <table class="t2sh1ka" data-rac="" aria-label="Standings Classic table"
+                   id="react-aria4786171220-:rf2:" role="grid" tabindex="0" aria-describedby=""
+                   data-collection="react-aria4786171220-:rf3:">
+                <thead role="rowgroup" class="react-aria-TableHeader" data-rac="">
+                <tr role="row">
+                    <th tabindex="-1" data-collection="react-aria4786171220-:rf3:" data-key="react-aria-1" id="react-aria4786171220-:rf2:-react-aria-1" role="columnheader" aria-colindex="1" data-react-aria-pressable="true" class="h7amhd3 t2sh1k0" data-rac="">Rank </th>
+                    <th tabindex="-1" data-collection="react-aria4786171220-:rf3:" data-key="react-aria-2" id="react-aria4786171220-:rf2:-react-aria-2" role="columnheader" aria-colindex="2" data-react-aria-pressable="true" class="_1jqkqxq0 h7amhd3 t2sh1k0" data-rac="">Team &amp; Manager</th>
+                    <th tabindex="-1" data-collection="react-aria4786171220-:rf3:" data-key="react-aria-3" id="react-aria4786171220-:rf2:-react-aria-3" role="columnheader" aria-colindex="3" data-react-aria-pressable="true" class="h7amhd4 h7amhd3 t2sh1k0" data-rac="">
+                        <span role="button" class="_1bo1yz44 _1bo1yz42 t2sh1k2 t2sh1k0" tabindex="0">GW</span>
+                    </th>
+                    <th tabindex="-1" data-collection="react-aria4786171220-:rf3:" data-key="react-aria-4" id="react-aria4786171220-:rf2:-react-aria-4" role="columnheader" aria-colindex="4" data-react-aria-pressable="true" class="h7amhd4 h7amhd3 t2sh1k0" data-rac="">Total</th>
+                </tr>
+                </thead>
+                <tbody class="react-aria-TableBody">
+                {% for entry in standings %}
+                <tr class="h7amhd1" role="row">
+                    <td class="h7amhd6 h7amhd5 h7amhd9">
+                        <span class="_1jqkqxq1">
+                            {{ entry.rank }}
+                            {% if entry.last_rank %}
+                                {% if entry.rank < entry.last_rank %}
+                                    <span style="color: green;font-size: 1em;">↑</span>
+                                {% elif entry.rank > entry.last_rank %}
+                                    <span style="color: red;font-size: 1em;">↓</span>
+                                {% else %}
+                                    <span style="color: gray;font-size: 1em;">•</span>
+                                {% endif %}
+                            {% else %}
+                                <span style="color: gray;font-size: 1em;">•</span>
+                            {% endif %}
+                        </span>
+                    </td>
+                    <td class="h7amhd6 h7amhd5 h7amhd9">
+                        <div class="t2sh1k0">
+                            <a class="_1jqkqxq2" href="https://fantasy.premierleague.com/entry/{{ entry.entry }}/event/{{link_event_id}}">
+                                <strong>{{ entry.entry_name }}</strong>
+                            </a>
+                            <br>
+                            <span>{{ entry.player_name }}</span>
+                        </div>
+                    </td>
+                    <td class="h7amhd6 h7amhd5 h7amhd9 h7amhd8">{{ entry.event_total }}</td>
+                    <td class="h7amhd6 h7amhd5 h7amhd9 h7amhd8">{{ entry.total }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <span data-focus-scope-end="true" hidden=""></span>
+            <div class="_9qwb423">
+                <a class="_1hin72h0 _1hin72h7 _1hin72h1 _1hin72h3 _1hin72h5 rr2m9y0 " href="mailto:mynewage@gmail.com" data-discover="true">Report Admin</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

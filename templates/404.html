@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found - FPL Web Application{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin: 3rem 0;">
+    <h1 style="font-size: 4rem; color: #ff6b6b; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">404</h1>
+    <h2 class="fpl-title">Page Not Found</h2>
+    <p style="font-size: 1.2rem; color: #666; margin: 1rem 0;">
+        Sorry, the FPL page you're looking for doesn't exist.
+    </p>
+
+    <div style="margin: 2rem 0;">
+        <a href="/" class="fpl-btn">Go Home</a>
+        <a href="/about" class="fpl-btn" style="background: linear-gradient(135deg, #6c757d 0%, #495057 100%); margin-left: 1rem;">Learn More</a>
+    </div>
+</div>
+
+<div class="fpl-card" style="margin: 2rem auto; max-width: 600px;">
+    <h3 class="fpl-title">What can you do?</h3>
+    <ul style="text-align: left; margin: 1rem 0;">
+        <li>Check the URL for typos</li>
+        <li>Go back to the <a href="/" style="color: #37003c; font-weight: 600;">FPL home page</a></li>
+        <li>Learn more <a href="/about" style="color: #37003c; font-weight: 600;">about this application</a></li>
+        <li>Try the API endpoints at <code style="background: #37003c; color: #00ff87; padding: 0.25rem 0.5rem; border-radius: 3px;">/api/data</code></li>
+    </ul>
+</div>
+
+<div style="text-align: center; margin: 2rem 0;">
+    <div class="fpl-card" style="max-width: 400px; margin: 0 auto; background: linear-gradient(135deg, #37003c 0%, #00ff87 100%); color: white;">
+        <h4 style="color: white; margin-bottom: 0.5rem;">⚽ FPL Tip</h4>
+        <p style="font-style: italic;">Even the best FPL managers make wrong turns sometimes. Get back in the game!</p>
+    </div>
+</div>
+{% endblock %}
+    <div class="fpl-container">
+        <main class="fpl-main">
+            {% block content %}{% endblock %}
+        </main>
+    </div>

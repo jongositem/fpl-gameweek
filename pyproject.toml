@@ -1,0 +1,10 @@
+[project]
+name = "fpl-tb"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "flask>=3.1.2",
+    "pytz>=2025.2",
+    "requests>=2.32.5",
+]

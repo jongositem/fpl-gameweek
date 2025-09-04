@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Home - FPL Web Application{% endblock %}
+
+{% block content %}
+
+<div class="_16mjapo2 _16mjapo0">
+    <div class="nxc5e30">
+        <header class="_9qwb420">
+            <h2 id="page-title" class="y4h0qq0">{{ league_info }}</h2>
+            <div class="_9qwb422"></div>
+            <div class="_9qwb424">
+                <a class="_1hin72h0 _1hin72h7 _1hin72h1 _1hin72h3 _1hin72h5 rr2m9y0 " href="mailto:mynewage@gmail.com" data-discover="true">Report To Admin</a>
+            </div>
+        </header>
+        <div class="yfrbn60">
+            <p>Gameweek {{ league_name }}</p>
+            <div>
+                <div role="group" aria-label="Filter chips" class="react-aria-Select">
+                    <select class="" onchange="if(this.value) window.location.href='/event/' + this.value">
+                        <option value="" selected>Select Gameweek</option>
+                        {% for event in gameweeks %}
+                            <option value="{{ event.id }}" {% if event.id == event_id %}selected{% endif %}>{{ event.name }} - {{event.deadline_time | format_datetime}}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="u523kl2 u523kl1 u523kl0 u523kl5" data-rac="" type="button"  data-react-aria-pressable="true" aria-label="Filter by Reset, none selected" id="react-aria1962656775-:r29p:" onclick="window.location.href='/'">
+                        <span class="t2sh1k0">Reset</span>
+                        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M14.5 8C14.5 11.6 11.6 14.5 8 14.5C4.4 14.5 1.5 11.6 1.5 8H2.5C2.5 11.05 4.95 13.5 8 13.5C11.05 13.5 13.5 11.05 13.5 8C13.5 4.95 11.05 2.5 8 2.5C4.95 2.5 4.4 3.45 3.4 5H6.5L5.5 6H2V2.5L3 1.5V3.85C4.2 2.35 6.05 1.5 8 1.5C11.6 1.5 14.5 4.4 14.5 8Z" fill="currentColor"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            {% if error %}
+            <div class="error-message">{{ error }}</div>
+            {% endif %}
+
+            <template data-react-aria-hidden="true"></template>
+            <span data-focus-scope-start="true" hidden=""></span>
+            <table class="t2sh1ka" data-rac="" aria-label="Standings Classic table"
+                   id="react-aria4786171220-:rf2:" role="grid" tabindex="0" aria-describedby=""
+                   data-collection="react-aria4786171220-:rf3:">
+                <thead role="rowgroup" class="react-aria-TableHeader" data-rac="">
+                <tr role="row">
+                    <th tabindex="-1" data-collection="react-aria4786171220-:rf3:"
+                        data-key="react-aria-1" id="react-aria4786171220-:rf2:-react-aria-1"
+                        role="columnheader" aria-colindex="1" data-react-aria-pressable="true"
+                        class="h7amhd3 t2sh1k0" data-rac="">Rank
+                    </th>
+                    <th tabindex="-1" data-collection="react-aria4786171220-:rf3:"
+                        data-key="react-aria-2" id="react-aria4786171220-:rf2:-react-aria-2"
+                        role="columnheader" aria-colindex="2" data-react-aria-pressable="true"
+                        class="_1jqkqxq0 h7amhd3 t2sh1k0" data-rac="">Team &amp; Manager
+                    </th>
+                    <th tabindex="-1" data-collection="react-aria4786171220-:rf3:"
+                        data-key="react-aria-3" id="react-aria4786171220-:rf2:-react-aria-3"
+                        role="columnheader" aria-colindex="3" data-react-aria-pressable="true"
+                        class="h7amhd4 h7amhd3 t2sh1k0" data-rac=""><span role="button"
+                                                                          class="_1bo1yz44 _1bo1yz42 t2sh1k2 t2sh1k0"
+                                                                          tabindex="0">Points</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="react-aria-TableBody">
+                {% for entry in standings %}
+                <tr class="h7amhd1" role="row">
+                    <td class="h7amhd6 h7amhd5 h7amhd9">
+                        <span class="_1jqkqxq1" style="display: flex; justify-content: space-between; align-items: center;">
+                            <span></span>
+                            <span style="text-align: right;">{{ entry.event_rank }}</span>
+                            <span style="display: flex; align-items: center; ">
+                                {% if entry.event_rank == 1 %}
+                                <span style="color: gold; font-size: 1.7em;padding-bottom: 5px;">★</span>
+                                {% endif %}
+                                {% if entry.event_rank > (standings|length - 3) %}
+                                <span style="color: red; font-size: 1em;">$</span>
+                                {% endif %}
+                            </span>
+                        </span>
+                    </td>
+                    <td class="h7amhd6 h7amhd5 h7amhd9">
+                        <div class="t2sh1k0">
+                            <a class="_1jqkqxq2" href="https://fantasy.premierleague.com/entry/{{ entry.entry }}/event/{{ league_name }}">
+                                <strong>{{ entry.entry_name }}</strong>
+                            </a>
+                            <br>
+                            <span>{{ entry.player_name }}</span>
+                        </div>
+                    </td>
+                    <td class="h7amhd6 h7amhd5 h7amhd9 h7amhd8">{{ entry.event_total }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <span data-focus-scope-end="true" hidden=""></span>
+            <div class="_9qwb423">
+                <a class="_1hin72h0 _1hin72h7 _1hin72h1 _1hin72h3 _1hin72h5 rr2m9y0 " href="mailto:mynewage@gmail.com" data-discover="true">Report Admin</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

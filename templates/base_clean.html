@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TB FPL LEAGUE{% endblock %}</title>
+
+    <!-- Local FPL CSS file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fpl-index.css') }}">
+
+    <!-- FPL Official Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom FPL styling to complement the downloaded CSS -->
+    <style>
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #37003c;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        /* Official FPL Header Styles */
+        ._7od82s0 {
+            background-color: #37003c;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 0;
+        }
+
+        ._7od82s1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        ._7od82s2 {
+            height: 40px;
+            width: auto;
+        }
+
+        .xjr7e60 {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            background-color: #00ff87;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pk7wdf0 {
+            display: flex;
+        }
+
+        .pk7wdf6 {
+            color: #37003c;
+            text-decoration: none;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            display: block;
+            white-space: nowrap;
+        }
+
+        .pk7wdf6:hover {
+            background-color: rgba(55, 0, 60, 0.1);
+        }
+
+        .pk7wdf1 {
+            background-color: rgba(55, 0, 60, 0.1);
+        }
+
+        .fpl-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .fpl-main {
+            background-color: #fff;
+            margin: 2rem 0;
+            padding: 2.5rem;
+            border-radius: 12px;
+            color: #37003c;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fpl-main::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #37003c 0%, #00ff87 50%, #37003c 100%);
+        }
+
+        .fpl-footer {
+            background: linear-gradient(135deg, #37003c 0%, #2d0032 100%);
+            color: #00ff87;
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: 3rem;
+            border-top: 3px solid #00ff87;
+            position: relative;
+        }
+
+        .fpl-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #37003c 0%, #00ff87 100%);
+            color: #fff;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(55, 0, 60, 0.3);
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        .fpl-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(55, 0, 60, 0.4);
+        }
+
+        .fpl-form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .fpl-label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: #37003c;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fpl-input, .fpl-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background-color: #fff;
+        }
+
+        .fpl-input:focus, .fpl-textarea:focus {
+            outline: none;
+            border-color: #00ff87;
+            box-shadow: 0 0 0 3px rgba(0, 255, 135, 0.1);
+        }
+
+        .fpl-alert {
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            background-color: #00ff87;
+            border: 1px solid #00cc6a;
+            color: #37003c;
+            font-weight: 600;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .fpl-alert::before {
+            content: "✓";
+            position: absolute;
+            top: 1.25rem;
+            left: 1.25rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .fpl-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #00ff87;
+            margin: 1.5rem 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fpl-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .fpl-title {
+            color: #37003c;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .fpl-title::after {
+            content: "";
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #37003c 0%, #00ff87 100%);
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .xjr7e60 {
+                flex-direction: column;
+            }
+
+            .pk7wdf6 {
+                text-align: center;
+                padding: 16px;
+            }
+
+            .fpl-main {
+                margin: 1rem 0;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="_7od82s0">
+        <div class="_7od82s1">
+            <h1>
+                <img src="https://fantasy.premierleague.com/assets/headline-logo-DgE6C_gE.svg" class="_7od82s2" alt="TB FPL LEAGUE">
+            </h1>
+        </div>
+        <nav>
+            <ul class="xjr7e60">
+                <li class="pk7wdf0"><a class="pk7wdf6" href="/" data-discover="true">Home</a></li>
+                <li class="pk7wdf0"><a class="pk7wdf6" href="/about" data-discover="true">About</a></li>
+                <li class="pk7wdf0"><a class="pk7wdf6 pk7wdf1" href="/leagues" data-discover="true" aria-current="page">TB FPL League</a></li>
+                <li class="pk7wdf0"><a class="pk7wdf6" href="/api/data" data-discover="true">API</a></li>
+                <li class="pk7wdf0"><a class="pk7wdf6" href="#" target="_blank">Sign Out</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="fpl-container">
+        <main class="fpl-main">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <footer class="fpl-footer">
+        <div class="fpl-container">
+            <p>&copy; 2025 TB FPL LEAGUE. Powered by Premier League Fantasy Football.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('TB FPL LEAGUE Application loaded successfully!');
+
+            // Add active state to current page
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.pk7wdf6');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('pk7wdf1');
+                    link.setAttribute('aria-current', 'page');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
