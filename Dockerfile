@@ -6,22 +6,24 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     UV_CACHE_DIR=/tmp/uv-cache
 
-# Set work directory
+# Create non-root user first
+RUN adduser --disabled-password --gecos '' appuser
+
+# Set work directory and change ownership
 WORKDIR /app
+RUN chown -R appuser:appuser /app
+
+# Switch to non-root user before installing dependencies
+USER appuser
 
 # Copy dependency files first for better layer caching
-COPY pyproject.toml uv.lock ./
+COPY --chown=appuser:appuser pyproject.toml uv.lock ./
 
-# Install Python dependencies with uv
+# Install Python dependencies with uv as the appuser
 RUN uv sync --frozen --no-dev && rm -rf /tmp/uv-cache
 
 # Copy application code
-COPY . .
-
-# Create non-root user for security
-RUN adduser --disabled-password --gecos '' appuser \
-    && chown -R appuser:appuser /app
-USER appuser
+COPY --chown=appuser:appuser . .
 
 # Expose port
 EXPOSE 8000
