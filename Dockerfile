@@ -16,8 +16,10 @@ RUN apt-get update \
         gcc \
         libc6-dev \
     && curl -LsSf https://astral.sh/uv/install.sh | sh \
-    && mv /root/.cargo/bin/uv /usr/local/bin/uv \
-    && rm -rf /var/lib/apt/lists/*
+    && . $HOME/.cargo/env \
+    && mv $HOME/.cargo/bin/uv /usr/local/bin/uv \
+    && rm -rf /var/lib/apt/lists/* \
+    && uv --version
 
 # Copy dependency files first for better layer caching
 COPY pyproject.toml uv.lock ./
